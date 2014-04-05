@@ -33,6 +33,8 @@ nav {
   margin-left: 74px;
 }
 
+nav a { padding: 0 .5em; }
+
 main {
   max-width: 640px;
   text-align: justify;
