@@ -11,7 +11,7 @@ I study physics with a focus on experimental high-energy particle physics at TU 
 I already mentioned Python, C++, and Haskell as my favourite programming languages (in that order). When it comes to the religious question of which editor to choose, I have to confess being a Vim-person. I use Mac OS for my daily work, but I'm equally fond of Linux. [Arch](https://www.archlinux.org/) is my favourite distribution. I prefer Zsh over Bash and git over any other SCM. I love both coffee and tea.
 
 ### A picture
-![A larger version of the picture in the top right corner.](https://www.gravatar.com/avatar/4c6b605bb8fc7b87e22943dfc422b4cd?s=400)
+![A larger version of the picture in the top left corner.](https://www.gravatar.com/avatar/4c6b605bb8fc7b87e22943dfc422b4cd?s=400)
 
 ## Contact
 If you want to contact me, write an electronic mail to kevin @ this domain. I would like to kindly ask you to not bother my spam filter with advertisements, business proposals, or Nigerian family fortunes. Thank you!
