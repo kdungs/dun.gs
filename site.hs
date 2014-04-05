@@ -9,9 +9,13 @@ import Control.Monad (liftM)
 import Data.Monoid (mappend)
 import Hakyll
 
+-- Add deploy configuration
+config :: Configuration
+config = defaultConfiguration { deployCommand = "rsync -avz -e ssh ./_site/ uberspace:./html/" }
+
 
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
   -- Static resources
   --- Images
   match "images/*" $ do
