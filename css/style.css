@@ -11,6 +11,8 @@ samp {
   font: 300 12pt "Source Code Pro", monospace;
 }
 
+pre { padding: .5em; }
+
 a { text-decoration: none; }
 a:link { color: #268BD2; }
 a:visited { color: #2AA198; }
