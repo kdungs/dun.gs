@@ -1,0 +1,51 @@
+body {
+  color: #252D47;
+  font: 300 14pt "Source Sans Pro", "Helvetica Neue", "Helvetica", sans-serif;
+  padding: 0 1em;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font: 300 12pt "Source Code Pro", monospace;
+}
+
+a { text-decoration: none; }
+a:link { color: #268BD2; }
+a:visited { color: #2AA198; }
+a:hover,
+a:focus,
+a:active { text-decoration: underline; }
+
+header img {
+  float: left;
+}
+
+body > header > h1 {
+  margin-left: 74px;
+  margin-bottom: 0;
+}
+
+nav {
+  margin-left: 74px;
+}
+
+main {
+  max-width: 640px;
+  text-align: justify;
+}
+
+main > header > h1 {
+  border-bottom: 1px solid #2AA198;
+  text-align: left;
+}
+
+main > header > h1 > small {
+  color: #666;
+  font-size: 12pt;
+}
+
+main > p {
+  text-indent: 1em;
+}
