@@ -101,3 +101,25 @@ Afterwards, typing
 root
 ```
 should start the interactive interpreter.
+
+```
+  *******************************************
+  *                                         *
+  *        W E L C O M E  to  R O O T       *
+  *                                         *
+  *   Version   5.34/18     14 March 2014   *
+  *                                         *
+  *  You are welcome to visit our Web site  *
+  *          http://root.cern.ch            *
+  *                                         *
+  *******************************************
+
+ROOT 5.34/18 (v5-34-18@v5-34-18, Mar 14 2014, 16:29:50 on macosx64)
+
+CINT/ROOT C/C++ Interpreter version 5.18.00, July 2, 2010
+Type ? for help. Commands must be C++ statements.
+Enclose multiple statements between { }.
+root [0]
+```
+
+You can exit by typing `.q`.
