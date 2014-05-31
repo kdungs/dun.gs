@@ -1,6 +1,8 @@
 body {
+  background: #eee url('../images/notebook.png');
   color: #252D47;
   font: 300 14pt "Source Sans Pro", "Helvetica Neue", "Helvetica", sans-serif;
+  //font: 300 14pt "Helvetica", sans-serif;
   padding: 0 1em;
 }
 
@@ -20,24 +22,32 @@ a:hover,
 a:focus,
 a:active { text-decoration: underline; }
 
-header img {
-  float: left;
+#Container {
+  margin: 10px auto;
+  max-width: 640px;
+  padding: 0 10px;
 }
 
-body > header > h1 {
-  margin-left: 74px;
-  margin-bottom: 0;
+#Container > header > h1 {
+  font-size: 32pt;
+  font-weight: normal;
 }
 
 nav {
-  margin-left: 74px;
+  float: right;
 }
 
-nav a { padding: 0 .5em; }
+nav a {
+  font-weight: bold;
+  padding: 0 .5em;
+}
 
 main {
-  max-width: 640px;
-  text-align: justify;
+  background: white;
+  background: rgba(255, 255, 255, .75);
+  //text-align: justify;
+  line-height: 1.625;
+  padding: 1px 10px 30px 10px;
 }
 
 main > header > h1 {
@@ -50,6 +60,7 @@ main > header > h1 > small {
   font-size: 12pt;
 }
 
-main > p {
-  text-indent: 1em;
+footer > pre {
+  background: inherit;
+  text-align: center;
 }
