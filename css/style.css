@@ -2,7 +2,6 @@ body {
   background: #eee url('../images/notebook.png');
   color: #252D47;
   font: 300 14pt "Source Sans Pro", "Helvetica Neue", "Helvetica", sans-serif;
-  //font: 300 14pt "Helvetica", sans-serif;
   padding: 0 1em;
 }
 
@@ -45,7 +44,6 @@ nav a {
 main {
   background: white;
   background: rgba(255, 255, 255, .75);
-  //text-align: justify;
   line-height: 1.625;
   padding: 1px 10px 30px 10px;
 }
