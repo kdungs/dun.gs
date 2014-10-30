@@ -1,0 +1,123 @@
+body {
+  color: #333;
+  font: 14pt 'Helvetica Neue', 'Helvetica', 'Arial', 'Nimbus Sans L', sans-serif;
+}
+@media (min-width: 640px) {
+  body {
+    padding: 1em;
+  }
+}
+
+@media (min-width: 900px) {
+  body {
+    width: 800px;
+    margin: 0 auto;
+  }
+}
+
+/* Make header look nice. */
+header#Head h1,
+header#Head h2 {
+  margin: 0;
+}
+header#Head a {
+  color: #80cc80;
+  text-decoration: none;
+}
+header#Head h2 {
+  color: #666;
+  font-weight: inherit;
+}
+header#Head {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1em;
+}
+@media (max-width: 640px) {
+  header#Head {
+    margin-top: 2em;
+  }
+}
+
+/* Make social icons stick to the right edge and change colour on hover. */
+aside#Social {
+  font-size: xx-large;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+@media (min-width: 640px) {
+  aside#Social {
+    margin-top: 1em;
+  }
+}
+@media (min-width: 900px) {
+  aside#Social {
+    position: fixed;
+  }
+  aside#Social li {
+    float: inherit !important;
+  }
+}
+aside#Social ul {
+  list-style: none;
+  margin: 0;
+}
+aside#Social li {
+  float: left;
+}
+aside#Social a {
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  display: block;
+  padding: .2em .5em;
+  text-align: right;
+  text-decoration: none;
+}
+aside#Social a.github:hover {
+  color: #4183c4;
+}
+aside#Social a.twitter:hover {
+  color: #55acee;
+}
+aside#Social a.gplus:hover {
+  color: #dd4b39;
+}
+aside#Social a.stackoverflow:hover {
+  color: #f90;
+}
+
+/* Improve readability of main block. */
+main {
+  line-height: 1.625;
+  max-width: 800px;
+}
+
+/*
+ */
+section#Articles dt {
+  font-size: larger;
+}
+section#Articles a {
+  color: #80cc80;
+  font-weight: bold;
+  text-decoration: none;
+}
+section#Articles dd {
+  margin-bottom: 1em;
+}
+
+/* Style the footer. */
+footer#Foot {
+  margin-top: 3em;
+}
+footer#Foot p {
+  color: #666;
+  font-size: small;
+}
+
+footer#Foot a {
+  color: #666;
+  text-decoration: none;
+  font-weight: bold;
+}

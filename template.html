@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kevin Dungs">
+  <meta name="description" content="Personal web-site and blog of Kevin Dungs.">
+  <title>Kevin Dungs</title>
+
+  <!-- Style -->
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/css/normalise.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <header id="Head">
+    <hgroup>
+      <h1><a href="/">Kevin Dungs</a></h1>
+      <h2>Physicist. Programmer. Particle Clicker.</h2>
+    </hgroup>
+  </header>
+
+  <aside id="Social">
+    <ul>
+      <li><a class="github" href="https://github.com/kdungs"><i class="fa fa-github"></i></a></li>
+      <li><a class="twitter" href="https://twitter.com/kdungs"><i class="fa fa-twitter"></i></a></li>
+      <li><a class="gplus" href="https://plus.google.com/u/kdungs"><i class="fa fa-google-plus"></i></a></li>
+      <li><a class="stackoverflow" href="https://stackoverflow.com/users/96690/kevin-dungs"><i class="fa fa-stack-overflow"></i></a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <h1>$title$</h1>
+    $body$
+  </main>
+
+  $if(overview)$
+  <section id="Articles">
+    <h1>Articles</h1>
+    <dl>
+      $overview$
+    </dl>
+  </section>
+  $endif$
+
+  <footer id="Foot">
+    <p>Powered by <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a> and a Makefile.</p>
+  </footer>
+
+</body>
+</html>
