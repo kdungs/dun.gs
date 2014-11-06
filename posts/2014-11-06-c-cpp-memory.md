@@ -27,7 +27,7 @@ With `std::unique_ptr` and `std::shared_ptr`, C++ offers smart containers for me
 uniqueObjectPtr obj{object_new(), object_free};
 ```
 
-A working example of this can be found in [https://github.com/kdungs/cpp-neat/tree/master/ManageC](https://github.com/kdungs/cpp-neat/tree/master/ManageC).
+A working example of this can be found in [<i class="fa fa-github"></i> kdungs/cpp-neat/ManageC](https://github.com/kdungs/cpp-neat/tree/master/ManageC).
 
 ## Real World Example: libgit2
 Take for example the following snippet that makes use of libgit2 to load information about a local git repository
