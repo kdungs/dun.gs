@@ -6,6 +6,8 @@ description: Wrapping C-style new and free in C++ memory managing objects.
 
 Today I had some time to play around with [libgit2](https://libgit2.github.com), an excellent C-library for [Git](http://git-scm.com/). But since I was thinking about using it together with the freshly released [Proxygen](https://github.com/facebook/proxygen), the fast HTTP-framework from Facebook, I wanted to use the library functions from C++ from the start.
 
+This was a perfect opportunity to play around with C++ memory management objects in the context of a C-library.
+
 ## Academic Example
 In C-libraries, one often finds the following pattern for construction and destruction of objects on the heap:
 
