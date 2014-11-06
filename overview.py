@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from collections import OrderedDict
 import itertools as it
 from glob import glob
 
@@ -17,8 +18,8 @@ def giveHtmlPath(mdPath):
 
 
 def loadInformation(folder):
-    mdFiles = glob('{}/*.md'.format(folder))
-    return {giveHtmlPath(f): loadYamlBlock(f) for f in mdFiles}
+    mdFiles = sorted(glob('{}/*.md'.format(folder)))
+    return OrderedDict([(giveHtmlPath(f), loadYamlBlock(f)) for f in mdFiles])
 
 
 def formatHtml(htmlPath, yamlInfo):
