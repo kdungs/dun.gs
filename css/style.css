@@ -86,6 +86,9 @@ aside#Social a.gplus:hover {
 aside#Social a.stackoverflow:hover {
   color: #f90;
 }
+aside#Social a.amazon:hover {
+  color: #E47911;
+}
 
 /* Improve readability of main block. */
 main {
