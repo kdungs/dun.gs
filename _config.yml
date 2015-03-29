@@ -1,0 +1,63 @@
+# Build settings
+markdown: redcarpet
+highlighter: pygments
+gems:
+  - jemoji
+  
+# Site settings
+title: "Kevin Dungs"
+description: > # this means to ignore newlines until "email:"
+  Physicist. Programmer. Particle Clicker.
+
+email: kevin@dun.gs
+#blog logo
+logo: "/assets/images/logo.jpg"
+# blog cover
+cover: "/assets/images/lhcb.jpg"
+
+name: 'Kevin Dungs'
+author: 'Kevin Dungs'
+author_image: "/assets/images/author.jpg"
+
+paginate:	5
+
+url: "https://dun.gs" # the base hostname & protocol for your site
+baseurl: ""
+
+# social icons and sharing options
+social:
+  - icon:	twitter
+    url:	https://twitter.com/kdungs
+    desc: Follow me on twitter
+    share_url: http://twitter.com/share
+    share_title: ?text=
+    share_link: "&amp;url="
+
+#  - icon:	facebook
+#    url:	https://facebook.com/???
+#    desc: Connect with me facebook
+#    share_url: https://www.facebook.com/sharer.php
+#    share_title: ?t=
+#    share_link: "&amp;u="
+
+  - icon:	github
+    url:	https://github.com/kdungs
+    desc:	Fork me on github
+    share_url:
+    share_title:
+    share_link:
+
+  - icon:	google-plus
+    url:	https://google.com/+KevinDungs
+    desc:	Add me on google+
+    share_url: https://plus.google.com/share
+    share_title: ?t=
+    share_link: "&amp;share="
+
+  - icon: stack-overflow
+    url: https://stackoverflow.com/users/96690/kevin-dungs
+    desc: My profile on StackOverflow
+
+  - icon: shopping-cart
+    url: https://www.amazon.de/registry/wishlist/1Q8BDDN8B8AB2
+    desc: My Amazon Wishlist
