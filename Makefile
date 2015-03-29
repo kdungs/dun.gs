@@ -5,5 +5,5 @@ clean:
 	rm -rf _site
 	rm -rf .sass-cache
 
-deploy:
+deploy: _site/
 	rsync -avz -e ssh ./_site/ uberspace:./html/	
