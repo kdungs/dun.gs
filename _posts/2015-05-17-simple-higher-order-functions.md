@@ -4,11 +4,11 @@ title: Simple Higher Order Functions in C++
 date: 2015-05-17
 ---
 
-This is a question from a friend of mine that I will try to answer in this post. I will examine the problem in two steps and then discuss the alternatives.
+Here is a question from a friend of mine that I will try to answer in this post: 
 
 > I have the problem that I want to pass a function to a function. Until now, I have used `std::function` but I know there is also the possibility of function pointers and also you said something about templates and who knows what else. The question is of course: What's the difference and what is best?
 
-In technical terms the question is: "How do **higher-order functions** work in C++ and which way to implement them is recommended?"
+In technical terms the question is: "How do **higher-order functions** work in C++ and which way to implement them is recommended?". I will examine the problem in two steps and then discuss the alternatives.
 
 ## Functions in C++
 What exactly is a "function" in C++? For the purpose of this exercise let's limit ourselves to _mathematical_ functions that return a value from a number of parameters without side-effects (a.k.a. _pure_ functions).
