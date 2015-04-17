@@ -60,7 +60,7 @@ int resultOfCalculation(const ArithmeticOperation& op,
 }
 ```
 
-and voila there is already a solution for the initial problem. The fact that this approach smells a lot like Java might be a hint that it is probably not the optimal solution. If you need more convincing: Virtual function calls prevent inlining and will make your code less efficient. Also you'd limit the set of possible functions `resultOfCalculation` can be called on. It will only work on function objects (no literals, no lambdas) that inherit from `ArithmeticOperation`. A more extensible approach can be found further down.
+and voila there is already a solution for the initial problem. The fact that this approach smells a lot like Java might be a hint that it is probably not the optimal solution. If you need more convincing: Virtual function calls prevent inlining and will make your code less efficient. Also you'd limit the set of possible functions `resultOfCalculation` can be called on. It will only work on function objects (no normal functions, no lambdas) that inherit from `ArithmeticOperation`. A more extensible approach can be found further down.
 
 
 ### Lambdas
