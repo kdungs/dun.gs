@@ -34,7 +34,7 @@ which already existed in C, is simple, and gets the job done.
 
 
 ### Function Objects
-Another way to define `add` such that it can be used in the above example would be by defining a class with a `()` operator. An instance of such a class will be _callable_. Some people refer to those classes (or objects instantiated from them) as "functors", but they are wrong.
+Another way to define `add` such that it can be used in the above example would be by defining a class with a `()` operator. An instance of such a class will be _callable_. Some people refer to those classes (or objects instantiated from them) as "functors", but they are wrong ;).
 
 ```cpp
 class Adder {
@@ -110,7 +110,7 @@ int resultOfCalculation(int (*op)(int, int),
   return (*op)(x, y);
 }
 ```
-It works fine for both regularly defined functions and lambdas but doesn't work easily with callable objects.
+It works fine for regularly defined functions. On my machine with `clang`, it works as well for lambdas but that doesn't mean you can expect it to work all the time. Especially if your lambdas are not pure. Neither does it work easily with callable objects.
 
 
 ### std::function
@@ -138,6 +138,21 @@ which also works across the board. The compiler will create one instance of this
 
 This technique relies on duck typing meaning that the way `op` is used limits the type it can have. E.g. when we try to pass something that is not callable, we will get a _compiler error_. A downside is that all possible values of `op` have to be known at compile time. _Concepts_ in C++17 will help strictly specifying requirements as well as giving more helpful error messages. In this example we could just as well pass in a function that returns something that can be casted into an `int` and nobody would ever notice.
 
+
+#### Advanced TTD
+Another way of implementing `resultOfCalculation` with template magic is the following (thanks to Manuel Schiller for reminding me)
+
+```cpp
+template <typename FN, typename T1, typename T2>
+auto resultOfCalculation(
+  const FN& op,
+  const T1& x,
+  const T2& y
+) -> decltype(op(x, y)) {
+  return op(x, y);  
+}
+```
+which is more general than the above as it will work with any function `op` that can be called with two parameters of arbitrary types `T1` and `T2`. It also generalises the resulting return type as the return type of `op` when called with `x` and `y`. One could even make it more general to accept any number of arguments using _variadic templates_ but that would go beyond the scope of this post. In case you are not a fan of `decltype`, `std::result_of` is your friend here.
 
 
 ## Conclusion
