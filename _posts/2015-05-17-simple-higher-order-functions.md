@@ -45,7 +45,7 @@ class Adder {
 };
 ```
 
-And then later in our code before we want to use `add` we would have to instantiate and object of this class e.g. via
+And then later in our code before we want to use `add` we would have to instantiate an object of this class e.g. via
 
 ```cpp
 Adder add;
@@ -76,7 +76,7 @@ std::function<int(int, int)> add = [](int x, int y) {
   return x + y;
 };
 ```
-but that doesn't mean that the type of the expression is actually `std::function<int(int, int>`. What happens is that an object of that type will be created from the object that is created from the expression. Savvy?
+but that doesn't mean that the type of the expression is actually `std::function<int(int, int)>`. What happens is that an object of that type will be created from the object that is created from the expression. Savvy?
 
 
 
@@ -136,7 +136,7 @@ int resultOfCalculation(const FN& op, int x, int y) {
 ```
 which also works across the board. The compiler will create one instance of this function for every function it is used with. However in this case all of them will be fully inlined resulting in the best performance since neither do we have to dereference pointers nor construct temporary objects.
 
-This technique relies on duck typing meaning that the way `op` is used limits the type it can have. E.g. when we try to pass something that is not callable, we will get a _compiler error_. A downside is that all possible values of `op` have to be known at compile time. _Concepts_ in C++17 will help strictly specifying requirements as well as giving more helpful error messages. In this example we could just as well pass in a function that returns something that can be casted into an `int` and nobody would ever notice.
+This technique relies on duck typing; meaning that the way `op` is used limits the type it can have. E.g. when we try to pass something that is not callable, we will get a _compiler error_. A downside is that all possible values of `op` have to be known at compile time. _Concepts_ in C++17 will help strictly specifying requirements as well as giving more helpful error messages. In this example we could just as well pass in a function that returns something that can be casted into an `int` and nobody would ever notice.
 
 
 #### Advanced TTD
