@@ -1,7 +1,7 @@
 ---
 layout: post
 title: C++ Template Meta Programming – Part 1
-date: 2015-05-20
+date: 2015-05-21
 ---
 
 Ready for some crazy stuff? In this post I will explore some template meta programming techniques in C++11 that will blow your mind if you have never seen them before. We will have a look at how to implement multiplication of arbitrary types that gets evaluated at compile time.
