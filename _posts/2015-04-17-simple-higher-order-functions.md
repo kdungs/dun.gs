@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Simple Higher Order Functions in C++
-date: 2015-05-17
+date: 2015-04-17
 ---
 
 Here is a question from a friend of mine that I will try to answer in this post: 
