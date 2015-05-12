@@ -66,3 +66,6 @@ using x = Op<A,
             >::result;
 ```
 but maybe there is a way to make this a bit more expressive…
+
+ * [Part 2](/2015/05/10/groups-templates-pt2.html)
+ * [Part 3](/2015/05/12/groups-templates-pt3.html)
