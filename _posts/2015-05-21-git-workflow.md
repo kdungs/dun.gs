@@ -13,6 +13,11 @@ The essence of this post is summarised in an [asciinema](https://asciinema.org) 
 ## The Setup
 For the sake of the exercise, let us say that Alice has started a project and put it on GitHub. Bob wants to contribute while not getting in Alice's way. We can emulate GitHub repositories locally by creating a _bare_ repository for Alice.
 
+<figure>
+  <img src="/assets/article_images/git-workflow-repos.png" alt="Layout of the repositories.">
+  <figcaption>This is how the different repositories relate to each other.<figcaption>
+</figure>
+
 ```bash
 git init --bare gh-alice
 ```
