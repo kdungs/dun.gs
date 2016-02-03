@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div class="home">
+
+  <p>
+    My name is Kevin. I did my masters in physics at TU Dortmund University in
+    Germany.  Currently, I am working on a PhD at the LHCb experiment at CERN
+    on a scholarship from the German ministry of education and research.
+  </p>
+  <p>
+    Together with <a href="https://babushk.in">Igor</a>,
+    <a href="http://tano.si">Tadej</a>, and
+    <a href="https://github.com/gbiro">Gábor</a>, I created
+    <a href="http://particle-clicker.web.cern.ch">Particle Clicker</a>, an
+    educational game about particle physics research.
+  </p>
+  <p>On this blog I share some ideas mostly around C++ and programming in general.</p>
+
+  <h1>Posts</h1>
+  <ul class="ipost-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+</div>
