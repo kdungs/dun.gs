@@ -91,7 +91,8 @@ struct Op<LHS, RHS...> : Op<typename LHS::result,
                             typename Op<RHS...>::result> {};
 ```
 
-which I personally find much more idiomatic. (Not that we care but the second version is also 11 words shorter.)
+which I personally find to be much more idiomatic. (Not that we care but the
+second version is also 11 words shorter.)
 
 ## Quesions, remarks, …
 Do you have any questions? Is anything unclear? Did I get something wrong? Is
