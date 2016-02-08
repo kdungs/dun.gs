@@ -20,8 +20,8 @@ static_assert(
 ```
 
 which if you ask me is pretty awesome. Now we want to revisit the code and use
-a nice pattern I learned in “C++ Template Metaprogramming: Concepts, Tools, and
-Techniques from Boost and Beyond” by Abrahams and Gurtovoy.
+a nice pattern that can be learned in “C++ Template Metaprogramming: Concepts,
+Tools, and Techniques from Boost and Beyond” by Abrahams and Gurtovoy.
 
 The final result from the old post looked like this:
 
