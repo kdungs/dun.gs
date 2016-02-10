@@ -7,3 +7,7 @@ baseurl: ""
 url: "https://dun.gs"
 twitter_username: kdungs
 github_username:  kdungs
+
+locale: "en_GB"
+fb_admins: https://facebook.com/kevin.dungs
+avatar: /assets/images/author.jpg
