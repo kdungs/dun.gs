@@ -23,6 +23,14 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+::selection {
+    background: $syntax-selection;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $headline-font-family;
+}
+
 
 
 /**
@@ -128,9 +136,10 @@ blockquote {
 pre,
 code {
     font-size: 15px;
-    border: 1px solid $brand-color-dark;
+    border: 1px solid $grey-color-light;
+	background-color: $syntax-bg;
     border-radius: 3px;
-    background-color: $brand-color-light;
+    //background-color: $brand-color-light;
 }
 
 code {
@@ -163,8 +172,8 @@ pre {
     @extend %clearfix;
 
     @include media-query($on-laptop) {
-        max-width: -webkit-calc(800px - (#{$spacing-unit}));
-        max-width:         calc(800px - (#{$spacing-unit}));
+        max-width: -webkit-calc(760px - (#{$spacing-unit}));
+        max-width:         calc(760px - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
     }

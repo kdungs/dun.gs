@@ -3,31 +3,39 @@
 ---
 @charset "utf-8";
 
+// Define duotone colours
+$syntax-uno: 40;
+$syntax-duo: 220;
+$uno-1: hsl($syntax-uno, 76%, 10%);
+$uno-2: hsl($syntax-uno, 58%, 34%);
+$uno-3: hsl($syntax-uno, 34%, 54%);
+$uno-4: hsl($syntax-uno, 16%, 66%);
+$duo-1: hsl($syntax-duo, 92%, 28%);
+$duo-2: hsl($syntax-duo, 46%, 62%);
+$duo-3: hsl($syntax-duo,  6%, 70%);
+$syntax-fg: $uno-2;
+$syntax-bg: hsl($syntax-uno, 33%, 97%);
+$syntax-accent: hsl($syntax-duo, 80%, 60%);
+$syntax-guide: darken($syntax-bg, 10%);
+$syntax-selection: darken($syntax-bg, 12%);
+$syntax-selection-gutter: darken($syntax-bg, 3%);
+
 // Our variables
 $base-font-family: Georgia, Times New Roman, Times, serif;
-$base-font-size:   16pt;
-$small-font-size:  $base-font-size * 0.875;
+$base-font-size: 14pt;
+$small-font-size: $base-font-size * 0.875;
+$headline-font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 $base-line-height: 1.5;
+$spacing-unit: 42px;
 
-$spacing-unit:     42px;
-
-$text-color:       #1a1a1a;
-$text-color:       #444;
-$background-color: lighten(#FFFDD0, 5%);
-
-$brand-color:       #348F2A;
-$brand-color:       #FFD700;
-$brand-color-light: lighten($brand-color, 40%);
-$brand-color-dark:  darken($brand-color, 15%);
-
-$grey-color:       #828282;
+$text-color: $uno-1;
+$background-color: $syntax-bg;
+$brand-color: $uno-2;
+$brand-color-light: $uno-3;
+$brand-color-dark: $uno-1; 
+$grey-color: darken($duo-3, 25%);
 $grey-color-light: lighten($grey-color, 40%);
 $grey-color-dark:  darken($grey-color, 25%);
-
-$on-palm:          600px;
-$on-laptop:        800px;
-
-
 
 // Using media queries with like this:
 // @include media-query($palm) {
@@ -36,17 +44,12 @@ $on-laptop:        800px;
 //         padding-left: $spacing-unit / 2;
 //     }
 // }
+$on-palm:          600px;
+$on-laptop:        760px;
 @mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+  @media screen and (max-width: $device) {
+  	@content;
+  }
 }
 
-
-
-// Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "base",
-        "layout",
-        "syntax-highlighting"
-;
+@import "base", "layout", "syntax-highlighting";

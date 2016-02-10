@@ -3,7 +3,7 @@
  */
 .site-header {
     border-top: 5px solid $brand-color;
-    border-bottom: 1px solid $grey-color-light;
+    border-bottom: 1px dotted $brand-color-light;
     min-height: 56px;
 
     // Positioning context for the mobile navigation icon
@@ -11,6 +11,8 @@
 }
 
 .site-title {
+	color: $brand-color;
+	font-family: $headline-font-family;
     font-size: 46px;
     line-height: 82px;
     letter-spacing: -1px;
@@ -19,8 +21,12 @@
 
     &,
     &:visited {
-        color: $grey-color-dark;
+	  color: $uno-3;
     }
+	&:hover, &:focus, &:active {
+	  text-decoration: none;
+	  color: $duo-2;
+	}
 }
 
 .site-nav {
