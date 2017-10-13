@@ -9,7 +9,7 @@ the squares of a list of numbers in Python
 
 ```python
 def squares(xs):
-    squares = [x ** 2 for x in xs]
+    return [x ** 2 for x in xs]
 ```
 
 This is almost exactly the same in Haskell
