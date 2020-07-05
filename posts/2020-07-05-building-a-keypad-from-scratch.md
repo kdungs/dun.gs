@@ -17,7 +17,7 @@ this side-project a very clear goal and time-frame:
 Build a functional mechanical keypad with ~13 keys and custom firmware from
 scratch in one weekend. Build it in a way that it could be theoretically scaled
 up to a larger size without problems; i.e. don't wire each switch to a
-dedicated pin on the Teensy.
+dedicated pin on the [Teensy](https://www.pjrc.com/teensy/).
 
 In this post, I document the process for myself and for anyone who's
 interested.
@@ -34,7 +34,7 @@ me, the Maxwell equations didn't help a tiny bit building this keyboard.
 # Parts and tools
 
 _I'll list and link to things I have bought and/or used for this project. None
-of the vendors linked to have paid me for this. Linking to them is for
+of the vendors mentioned have paid me for this. Linking to them is for
 documentation purposes only and not an endorsement._
 
 Some parts, were ordered from [reichelt.de](https://reichelt.de):
@@ -153,7 +153,7 @@ First, I probed the matrix manually e.g. by setting all rows to `OUTPUT` and
 `LOW` and row 0 to `HIGH` and then measuring the response in the `INPUT`
 columns. There are a few things wrong with that, notably that one should use
 pull-up mode for the inputs (`INPUT_PULLUP`) and set rows to `INPUT` while they
-are not scanning. Because of the pullup, we would then scan by setting the row
+are not scanning. Because of the pull-up, we would then scan by setting the row
 to `LOW`.
 
 Thanks to [a great message board post that provided some debouncing
