@@ -1,5 +1,5 @@
 ---
-title: How to set up a Windward server on GCP and some insights about systemd
+title: How to set up a Windward server on GCP and some insight into systemd
 author: Kevin
 date: 2020-09-24
 ---
