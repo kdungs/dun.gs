@@ -89,10 +89,10 @@ rm WWServer.zip
 In order to be able to actually start a campaign, you'll have to create it
 manually, by running the game on your local machine and starting a new
 campaign.  Once the corresponding `.dat` and `.dat.config` files show up under
-`%AppData\Bla\` (**TBD**), copy them into `~/Windward/Worlds/` on your server.
-The rest of the tutorial will assume that your campaign is called "MyCampaign".
-You might have to replace that name with whatever you chose in the following
-steps.
+`Documents\Windward\Worlds\`, copy them into `~/Windward/Worlds/` on your
+server.  The rest of the tutorial will assume that your campaign is called
+"MyCampaign".  You might have to replace that name with whatever you chose in
+the following steps.
 
 Then, create a script called `~/start-server.sh` with the following contents
 
