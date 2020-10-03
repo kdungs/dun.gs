@@ -18,8 +18,12 @@ main :: IO ()
 main = hakyllWith cfg $ do
   match "templates/*" $ compile templateCompiler
 
+  match "style.css" $ do
+    route idRoute
+    compile compressCssCompiler
+
   match "images/**/*" $ do
-    route   idRoute
+    route idRoute
     compile copyFileCompiler
 
   match "posts/*.md" $ do
