@@ -10,6 +10,7 @@ cfg = defaultConfiguration {
 
 postCtx :: Context String
 postCtx =
+  teaserField "teaser" "content" `mappend`
   dateField "date" "%0Y-%m-%d" `mappend`
   defaultContext
 
@@ -21,9 +22,10 @@ main = hakyllWith cfg $ do
     route   idRoute
     compile copyFileCompiler
 
-  match "posts/*" $ do
+  match "posts/*.md" $ do
     route $ setExtension "html"
     compile $ pandocCompiler
+      >>= saveSnapshot "content"
       >>= loadAndApplyTemplate "templates/post.html"    postCtx
       >>= loadAndApplyTemplate "templates/default.html" postCtx
       >>= relativizeUrls

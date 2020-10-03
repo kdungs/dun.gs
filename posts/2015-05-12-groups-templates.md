@@ -3,15 +3,17 @@ title: Simple group structures via templates in C++
 author: Kevin
 ---
 
-The code for this post can be found on
-[GitHub](https://github.com/kdungs/cpp-group-study).
-
 If you enjoyed the previous post on Simple Higher Order Functions in C++ you
 already got a taste of templates in C++. In this post we have a look at how we
 can implement compile-time _groups_ in C++11. If you are unfamiliar with the
 concept of groups, you can read about them on
 [Wikipedia](https://en.wikipedia.org/wiki/Group_%28mathematics%29) or [Wolfram
 MathWold](http://mathworld.wolfram.com/Group.html).
+
+<!--more-->
+
+The code for this post can be found on
+[GitHub](https://github.com/kdungs/cpp-group-study).
 
 For this example we look at O(1), a rather simple group structure. A possible
 incarnation of O(1) is ({1, -1}, ×). Here we call our elements _A_ and _B_ and

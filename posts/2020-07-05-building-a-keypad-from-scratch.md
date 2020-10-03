@@ -9,11 +9,13 @@ Keyboards are a fascinating topic. We interact with them on a daily basis
 without the need for a deep understanding of how they work. I consider myself a
 keyboard enthusiast, yet, I had never built one myself.
 
+<!--more-->
+
 In order to not get lost in the rabbit hole of possibilities, I decided to give
 this side-project a very clear goal and time-frame:
 
 
-# Goal
+## Goal
 
 Build a functional mechanical keypad with ~13 keys and custom firmware from
 scratch in one weekend. Build it in a way that it could be theoretically scaled
@@ -32,7 +34,7 @@ who have a good understanding of it - with Maxwell equations or without. For
 me, the Maxwell equations didn't help a tiny bit building this keyboard.
 
 
-# Parts and tools
+## Parts and tools
 
 _I'll list and link to things I have bought and/or used for this project. None
 of the vendors mentioned have paid me for this. Linking to them is for
@@ -74,7 +76,7 @@ Tools
  - Micro USB cable
 
 
-# 3D printing the case
+## 3D printing the case
 
 Originally, I wanted to include a rotary encoder and LEDs as well. However,
 given the time limit, I didn't want to spend a lot of the time learning
@@ -94,7 +96,7 @@ when trying to remove keycaps but it's okay for now.
 inserted.](/images/keyb/print.png)
 
 
-# Wiring
+## Wiring
 
 With only 12 keys and 42 digital pins on the Teensy, it would have been
 possible to just wire each switch to a dedicated pin. However, one goal of this
@@ -144,7 +146,7 @@ Soldering all this stuff was a pain and even though I used a fume extractor
 fan, my dinner tasted like solder, afterwards. Next time I'm going with a PCB.
 
 
-# Firmware
+## Firmware
 
 After all the soldering and worrying about whether the electronics will
 actually work, this was supposed to be the fun part. Of course, there is
@@ -172,12 +174,12 @@ find the results of that in said repo and if I stumble over anything cool, I'll
 also update this post.
 
 
-# Result
+## Result
 
 ![The final result with keycaps and controller.](/images/keyb/result.png)
 
 
-# Lessons learned
+## Lessons learned
 
 Teensy doesn't show up as a device on the Mac, in fact as someone pointed out
 in a message board:
@@ -196,7 +198,7 @@ high quality. So I either have to learn more about it or use laser-cut metal or
 something else the next time around.
 
 
-# What's next?
+## What's next?
 
  - Improve the firmware
  - A better case that can house the Teensy

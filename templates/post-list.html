@@ -1,7 +1,11 @@
-      <ul>
       $for(posts)$
-        <li>
-          <a href="$url$">$title$</a> <small>$date$</small>
-        </li>
+      <article>
+        <h1><a href="$url$">$title$</a></h1>
+        <aside>
+          <p>Posted by $author$ on $date$.</p>
+        </aside>
+        $if(teaser)$
+        <p>$teaser$</p>
+        $endif$
+      </article>
       $endfor$
-      </ul>

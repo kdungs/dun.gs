@@ -4,7 +4,7 @@ author: Kevin
 ---
 
 Here is a question from a friend of mine that I will try to answer in this
-post: 
+post:
 
 > I have the problem that I want to pass a function to a function. Until now, I
 > have used `std::function` but I know there is also the possibility of
@@ -14,6 +14,8 @@ post:
 In technical terms the question is: "How do **higher-order functions** work in
 C++ and which way to implement them is recommended?". I will examine the
 problem in two steps and then discuss the alternatives.
+
+<!--more-->
 
 
 ## Functions in C++
@@ -55,7 +57,7 @@ them) as "functors", but they are wrong ;).
 
 ```cpp
 class Adder {
- public:  
+ public:
   int operator()(int x, int y) const {
     return x + y;
   }
@@ -105,7 +107,7 @@ auto add = [](int x, int y) { return x + y; };
 
 will define `add` the way we want it. Please note that without `auto` we would
 have practically no chance to tell the type of the function literal `[](int x,
-int y) { return x + y; }`. We could write 
+int y) { return x + y; }`. We could write
 
 ```cpp
 std::function<int(int, int)> add = [](int x, int y) {
@@ -217,7 +219,7 @@ auto resultOfCalculation(
   const T1& x,
   const T2& y
 ) -> decltype(op(x, y)) {
-  return op(x, y);  
+  return op(x, y);
 }
 ```
 

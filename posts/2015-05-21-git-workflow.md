@@ -10,6 +10,8 @@ there isn't just one way to get things done with Git and GitHub. Here I present
 an approach to working with pull requests that has proven to cause little
 friction if done correctly. 
 
+<!--more-->
+
 The essence of this post is summarised in an [asciinema](https://asciinema.org)
 screen cast. If you want some more detail or just prefer reading, continue
 below the video.

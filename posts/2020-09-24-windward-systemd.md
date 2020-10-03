@@ -12,6 +12,8 @@ Windward. For technical reasons, we had to set up a dedicated server which
 turned out to be fairly simple and has the added benefit of asynchronous play
 that since then lured in more players (shout out to Patrick!).
 
+<!--more-->
+
 This article touches on three important aspects:
 
 - [How to set up a virtual machine on the Google Cloud Platform (GCP) Compute

@@ -3,12 +3,18 @@ title: Refined simple group structures via templates in C++
 author: Kevin
 ---
 
-The code for this post can be found on
+This is a follow-up to a post from last year called "Simple group structures
+via templates in C++" in which we implemented a compile-time O(1) group
+structure.  Now we want to revisit the code and use a nice pattern that can be
+learned in “C++ Template Metaprogramming: Concepts, Tools, and Techniques from
+Boost and Beyond” by Abrahams and Gurtovoy.
+
+<!--more-->
+
+All code for this post can be found on
 [GitHub](https://github.com/kdungs/cpp-group-study).
 
-This is a follow-up to a post from last year called Simple group structures via
-templates in C++ in which we implemented a compile-time O(1) group structure.
-In the end, the following code worked:
+At the end of the last post, the following code worked:
 
 ```cpp
 static_assert(
@@ -16,11 +22,8 @@ static_assert(
   "AAABABBA = B");
 ```
 
-which if you ask me is pretty awesome. Now we want to revisit the code and use
-a nice pattern that can be learned in “C++ Template Metaprogramming: Concepts,
-Tools, and Techniques from Boost and Beyond” by Abrahams and Gurtovoy.
-
-The final result from the old post looked like this:
+which if you ask me is pretty awesome. The final result from the old post
+looked like this:
 
 ```cpp
 struct A { using result = A; };
