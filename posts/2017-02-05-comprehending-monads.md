@@ -89,7 +89,8 @@ Or equivalently in Haskell
 squares' xs = xs >>= \x -> return (x ^ 2)
 ```
 
-If we compare this to the version in do-notation, we can see how it's really just syntactic sugar.
+If we compare this to the version in do-notation, we can see how it's really
+just syntactic sugar.
 
 ```haskell
 squares xs = do
@@ -97,12 +98,13 @@ squares xs = do
   return (x ^ 2)
 ```
 
+
 ## More monads
 
 If all we ever dealt with was lists, this whole exercise would be pretty
-useless.[^useless] Luckily for us lists aren't the only monads in existence. Haskell has
-a type called `Maybe`. Instances of `Maybe` can be either `Just` a value or
-`Nothing`. The monad operations for `Maybe` are defined as follows
+useless.[^useless] Luckily for us lists aren't the only monads in existence.
+Haskell has a type called `Maybe`. Instances of `Maybe` can be either `Just` a
+value or `Nothing`. The monad operations for `Maybe` are defined as follows
 
 ```haskell
 return x = Just x
@@ -133,6 +135,7 @@ signature becomes
 ```haskell
 squares :: (Num a, Monad m) => m a -> m a
 ```
+
 
 ### Python, maybe?
 
@@ -214,7 +217,8 @@ one extra step. Right now, we could write something like
 ```
 
 and it would work. However, the result would not be `Just 25` but rather `[25]`
-which is not what we want. We would have replaced our maybe by a list. We get around this by introducing a convenience function
+which is not what we want. We would have replaced our maybe by a list. We get
+around this by introducing a convenience function
 
 ```python
 def maybe_comprehend(gen):
@@ -232,10 +236,13 @@ maybe_comprehend(x ** 2 for x in Just(5))
 
 and get the expected result `Just 25`. Pretty neat, isn't it?
 
+
 ## Feedback, questions, comments?
+
 If you want to point out errors in the above text, have inquiries, or simply
 want to tell me how reading it was a complete waste of your time, feel free to
-send me an email to `kevin at this domain`.
+[go to the corresponding issue on GitHub, in order to discuss this
+article.](https://github.com/kdungs/dun.gs/issues/8)
 
 
 [^python-lists]: In Python, the types of a list's elements can be heterogeneous

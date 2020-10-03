@@ -2,6 +2,7 @@
 title: Refined simple group structures via templates in C++
 author: Kevin
 ---
+
 The code for this post can be found on
 [GitHub](https://github.com/kdungs/cpp-group-study).
 
@@ -82,5 +83,10 @@ struct Op<LHS, RHS...> : Op<typename LHS::result,
                             typename Op<RHS...>::result> {};
 ```
 
+
 ## Questions, remarks, …
-Do you have any questions? Is anything unclear? Did I get something wrong? Is something horribly imprecise? Please let me know! Send an email to kevin at this domain or write an issue on the [GitHub repo](https://github.com/kdungs/cpp-group-study).
+
+Do you have any questions? Is anything unclear? Did I get something wrong? Is
+something horribly imprecise? Please let me know!  [Go to the corresponding
+issue on GitHub, in order to discuss this
+article.](https://github.com/kdungs/dun.gs/issues/7)

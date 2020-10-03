@@ -1,5 +1,6 @@
 ---
 title: Building a mechanical keypad from scratch
+author: Kevin
 ---
 
 > Zen mind, beginner's mind.
@@ -200,3 +201,6 @@ something else the next time around.
  - Improve the firmware
  - A better case that can house the Teensy
  - Use the rotary encoder and LEDs!
+
+[Go to the corresponding issue on GitHub, in order to discuss this
+article.](https://github.com/kdungs/dun.gs/issues/9)

@@ -1,7 +1,6 @@
 ---
 title: How to set up a Windward server on GCP and some insight into systemd
 author: Kevin
-date: 2020-09-24
 ---
 
 > [Windward](https://store.steampowered.com/app/326410/) is an action-filled
@@ -160,7 +159,9 @@ As one commenter notes,
 
 Unfortunately, the Windward server waits for input on stdin. Running it in the
 aforementioned fashion will result in the server spamming the output and
-continously reading from /dev/null/. If you try to run the server as a systemd user service directly, you'll see many lines similar to this one in `journalctl`:
+continously reading from /dev/null/. If you try to run the server as a systemd
+user service directly, you'll see many lines similar to this one in
+`journalctl`:
 
 ```
 Sep 24 13:55:59 windward-server start-server.sh[631]: [2020/09/24 13:55:59] \
@@ -190,3 +191,6 @@ ExecStop=/usr/bin/tmux send-keys -t Windward q Enter Enter
 ```
 
 Very nice indeed.
+
+[Go to the corresponding issue on GitHub, in order to discuss this
+article.](https://github.com/kdungs/dun.gs/issues/10)

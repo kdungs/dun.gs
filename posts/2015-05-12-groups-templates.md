@@ -2,6 +2,7 @@
 title: Simple group structures via templates in C++
 author: Kevin
 ---
+
 The code for this post can be found on
 [GitHub](https://github.com/kdungs/cpp-group-study).
 
@@ -109,6 +110,7 @@ which is a significant improvement over how we had to do it before. Now we only
 have to write `::result` once independent of how many operations we perform.
 However, we still have to write `Op<…>` _n-1_ times for n operations.
 
+
 ## Variadic templates
 
 are awesome. They allow us to write functions and even types that take
@@ -167,6 +169,7 @@ int main() {
 }
 ```
 
+
 ## Back to our group
 
 In order to apply what we've learned about variadic templates and parameter
@@ -212,7 +215,10 @@ implement compile-time calculations on arbitrary structures. We also had a look
 at _parameter packs_ and _variadic templates_ that allow us to write very
 generic and highly re-usable code.
 
+
 ## Questions, remarks, …
+
 Do you have any questions? Is anything unclear? Did I get something wrong? Is
-something horribly imprecise? Please let me know! Send an email to kevin at
-this domain or write an issue on the GitHub repo.
+something horribly imprecise? Please let me know! [Go to the corresponding
+issue on GitHub, in order to discuss this
+article.](https://github.com/kdungs/dun.gs/issues/5)
