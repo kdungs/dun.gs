@@ -1,0 +1,35 @@
+$bg: #FAFAFA;
+$fg: #383A42;
+$fg_li: scale-color($fg, $lightness: 50%);
+
+body {
+  background-color: $bg;
+  color: $fg;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  max-width: 46rem;
+  line-height: 1.5;
+}
+
+header > h1:before {
+  content: "// ";
+  color: $fg_li;
+}
+
+header > h1 > a {
+  font-variant: small-caps;
+  text-decoration: none;
+  color: $fg;
+}
+
+img {
+  max-width: 100%;
+}
+
+article > aside {
+  font-style: italic;
+}
+
+pre {
+  white-space: pre-wrap;
+}

@@ -5,7 +5,10 @@ taxonomies = []
 
 [markdown]
 highlight_code = true
-highlight_theme = "material-light"
+highlight_theme = "css"
+highlight_themes_css = [
+  { theme = "OneHalfLight", filename = "syntax-theme.css" },
+]
 render_emoji = true
 
 [extra]

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kevin's blog{% if page.title %}: {{ page.title }} {% endif %}</title>
     <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ get_url(path="syntax-theme.css") }}">
   </head>
   <body>
     <header>
@@ -13,10 +14,5 @@
     <main>
       {% block content %}{% endblock %}
     </main>
-    <footer>
-      <p>
-        [<a href="https://github.com/kdungs">GitHub</a>]
-      </p>
-    </footer>
   </body>
 </html>

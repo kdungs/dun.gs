@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>Hello, world!</p>
+
+<p>You can find me on <a href="https://github.com/kdungs">GitHub</a>!</p>
+
+<p>Sometimes, I use this page to publish articles. You can find all of them in the <a href="{{ get_url(path="@/posts/_index.md") }}">archive</a>. Here are the latest five.</p>
+
+<ul>
+  {% for post in section.pages | slice(end=5) %}
+  <li>
+    <a href="{{ post.permalink }}">{{ post.title }}</a> from {{ post.date }}
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
