@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for page in section.pages %}
+<article>
+  <h1><a href="{{ page.permalink }}">{{ page.title }}</a></h1>
+  <aside>
+    <p>Posted on {{ page.date }}.</p>
+  </aside>
+  {% if page.summary %}<p>{{ page.summary | safe }}</p>{% endif %}
+</article>
+{% endfor %}
+{% endblock %}

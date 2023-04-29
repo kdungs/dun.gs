@@ -1,0 +1,11 @@
+base_url = "https://dun.gs"
+compile_sass = true
+build_search_index = false
+taxonomies = []
+
+[markdown]
+highlight_code = true
+highlight_theme = "material-light"
+render_emoji = true
+
+[extra]
