@@ -6,7 +6,7 @@ author: Kevin
 In this post, we explore the relationship between Monads and list comprehension
 and implement some ideas from Haskell in Python.
 
-<!--more-->
+<!-- more -->
 
 List comprehension is a very useful and commonly used feature in both Python
 and Haskell. Many people will be familiar with the following way to calculate

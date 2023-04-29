@@ -10,7 +10,7 @@ concept of groups, you can read about them on
 [Wikipedia](https://en.wikipedia.org/wiki/Group_%28mathematics%29) or [Wolfram
 MathWold](http://mathworld.wolfram.com/Group.html).
 
-<!--more-->
+<!-- more -->
 
 The code for this post can be found on
 [GitHub](https://github.com/kdungs/cpp-group-study).

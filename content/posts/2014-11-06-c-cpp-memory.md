@@ -13,7 +13,7 @@ C++ from the start.
 This was a perfect opportunity to play around with C++ memory management
 objects in the context of a C-library.
 
-<!--more-->
+<!-- more -->
 
 
 ## Academic Example

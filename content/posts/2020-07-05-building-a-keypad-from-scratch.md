@@ -9,7 +9,7 @@ Keyboards are a fascinating topic. We interact with them on a daily basis
 without the need for a deep understanding of how they work. I consider myself a
 keyboard enthusiast, yet, I had never built one myself.
 
-<!--more-->
+<!-- more -->
 
 In order to not get lost in the rabbit hole of possibilities, I decided to give
 this side-project a very clear goal and time-frame:

@@ -9,7 +9,7 @@ structure.  Now we want to revisit the code and use a nice pattern that can be
 learned in “C++ Template Metaprogramming: Concepts, Tools, and Techniques from
 Boost and Beyond” by Abrahams and Gurtovoy.
 
-<!--more-->
+<!-- more -->
 
 All code for this post can be found on
 [GitHub](https://github.com/kdungs/cpp-group-study).

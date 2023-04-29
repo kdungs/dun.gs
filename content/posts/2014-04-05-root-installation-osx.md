@@ -9,7 +9,7 @@ powerful framework that can do a lot of magical things. In this post, I don't
 want to discuss its advantages or disadvantages but rather explain how I
 install it on Mac OS and why I do so.
 
-<!--more-->
+<!-- more -->
 
 There are always different ways to install `ROOT`. Although you might almost
 always want to work with the latest production version, be warned that new

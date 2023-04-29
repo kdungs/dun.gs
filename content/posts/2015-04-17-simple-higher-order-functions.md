@@ -15,7 +15,7 @@ In technical terms the question is: "How do **higher-order functions** work in
 C++ and which way to implement them is recommended?". I will examine the
 problem in two steps and then discuss the alternatives.
 
-<!--more-->
+<!-- more -->
 
 
 ## Functions in C++
