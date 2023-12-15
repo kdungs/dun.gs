@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kevin's blog</title>
+    <link rel="stylesheet" href="https://dun.gs/style.css">
+    <link rel="stylesheet" type="text/css" href="https://dun.gs/syntax-theme.css">
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Kevin's blog</a></h1>
+    </header>
+    <main>
+      
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;windward-systemd&#x2F;">How to set up a Windward server on GCP and some insight into systemd</a></h1>
+  <aside>
+    <p>Posted on 2020-09-24.</p>
+  </aside>
+  <p><blockquote>
+<p><a href="https://store.steampowered.com/app/326410/">Windward</a> is an action-filled multiplayer sandbox game that puts you in control of a ship sailing the high seas of a large procedurally-generated world.</p>
+</blockquote>
+<p>Thanks to the recent Steam Pirate Sale and my friend Alex, I started playing Windward. For technical reasons, we had to set up a dedicated server which turned out to be fairly simple and has the added benefit of asynchronous play that since then lured in more players (shout out to Patrick!).</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;building-a-keypad-from-scratch&#x2F;">Building a mechanical keypad from scratch</a></h1>
+  <aside>
+    <p>Posted on 2020-07-05.</p>
+  </aside>
+  <p><blockquote>
+<p>Zen mind, beginner's mind.</p>
+</blockquote>
+<p>Keyboards are a fascinating topic. We interact with them on a daily basis without the need for a deep understanding of how they work. I consider myself a keyboard enthusiast, yet, I had never built one myself.</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;comprehending-monads&#x2F;">Comprehending monads</a></h1>
+  <aside>
+    <p>Posted on 2017-02-05.</p>
+  </aside>
+  <p><p>In this post, we explore the relationship between Monads and list comprehension and implement some ideas from Haskell in Python.</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;groups-templates-refined&#x2F;">Refined simple group structures via templates in C++</a></h1>
+  <aside>
+    <p>Posted on 2016-02-08.</p>
+  </aside>
+  <p><p>This is a follow-up to a post from last year called <a href="https://dun.gs/posts/groups-templates/">Simple group structures via templates in C++</a> in which we implemented a compile-time O(1) group structure.  Now we want to revisit the code and use a nice pattern that can be learned in “C++ Template Metaprogramming: Concepts, Tools, and Techniques from Boost and Beyond” by Abrahams and Gurtovoy.</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;git-workflow&#x2F;">A good Git workflow or how to correctly rebase your PR</a></h1>
+  <aside>
+    <p>Posted on 2015-05-21.</p>
+  </aside>
+  <p><p><a href="https://git-scm.com">Git</a> is <strong>the</strong> tool when it comes to collaborative work. <a href="https://github.com">GitHub</a> with its nice UI and its mechanism of <em>forking</em> and <em>pull requests</em> can boost a team's productivity even more. Unfortunately, there isn't just one way to get things done with Git and GitHub. Here I present an approach to working with pull requests that has proven to cause little friction if done correctly. </p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;groups-templates&#x2F;">Simple group structures via templates in C++</a></h1>
+  <aside>
+    <p>Posted on 2015-05-12.</p>
+  </aside>
+  <p><p>If you enjoyed the previous post on Simple Higher Order Functions in C++ you already got a taste of templates in C++. In this post we have a look at how we can implement compile-time <em>groups</em> in C++11. If you are unfamiliar with the concept of groups, you can read about them on <a href="https://en.wikipedia.org/wiki/Group_%28mathematics%29">Wikipedia</a> or <a href="http://mathworld.wolfram.com/Group.html">Wolfram MathWold</a>.</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;simple-higher-order-functions&#x2F;">Simple higher order functions in C++</a></h1>
+  <aside>
+    <p>Posted on 2015-04-17.</p>
+  </aside>
+  <p><p>Here is a question from a friend of mine that I will try to answer in this post:</p>
+<blockquote>
+<p>I have the problem that I want to pass a function to a function. Until now, I have used <code>std::function</code> but I know there is also the possibility of function pointers and also you said something about templates and who knows what else. The question is of course: What's the difference and what is best?</p>
+</blockquote>
+<p>In technical terms the question is: &quot;How do <strong>higher-order functions</strong> work in C++ and which way to implement them is recommended?&quot;. I will examine the problem in two steps and then discuss the alternatives.</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;c-cpp-memory&#x2F;">Memory management of C libraries in C++</a></h1>
+  <aside>
+    <p>Posted on 2014-11-06.</p>
+  </aside>
+  <p><p>Today, I had some time to play around with <a href="https://libgit2.github.com">libgit2</a>, an excellent C-library for <a href="http://git-scm.com/">Git</a>. But since I was thinking about using it together with the freshly released <a href="https://github.com/facebook/proxygen">Proxygen</a>, the fast HTTP-framework from Facebook, I wanted to use the library functions from C++ from the start.</p>
+<p>This was a perfect opportunity to play around with C++ memory management objects in the context of a C-library.</p>
+</p>
+</article>
+
+<article>
+  <h1><a href="https:&#x2F;&#x2F;dun.gs&#x2F;posts&#x2F;root-installation-osx&#x2F;">ROOT installation on OS X</a></h1>
+  <aside>
+    <p>Posted on 2014-04-05.</p>
+  </aside>
+  <p><p>In particle physics, when it comes to data analysis, <a href="http://root.cern.ch/">CERN's <code>ROOT</code></a> often is the tool of choice. It is a big and powerful framework that can do a lot of magical things. In this post, I don't want to discuss its advantages or disadvantages but rather explain how I install it on Mac OS and why I do so.</p>
+</p>
+</article>
+
+
+    </main>
+  </body>
+</html>

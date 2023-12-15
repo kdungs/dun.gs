@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kevin's blog: ROOT installation on OS X </title>
+    <link rel="stylesheet" href="https://dun.gs/style.css">
+    <link rel="stylesheet" type="text/css" href="https://dun.gs/syntax-theme.css">
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Kevin's blog</a></h1>
+    </header>
+    <main>
+      
+<article>
+  <h1>ROOT installation on OS X</h1>
+  <aside>
+    <p>Posted on 2014-04-05.</p>
+  </aside>
+  <p>In particle physics, when it comes to data analysis, <a href="http://root.cern.ch/">CERN's <code>ROOT</code></a> often is the tool of choice. It is a big and powerful framework that can do a lot of magical things. In this post, I don't want to discuss its advantages or disadvantages but rather explain how I install it on Mac OS and why I do so.</p>
+<span id="continue-reading"></span>
+<p>There are always different ways to install <code>ROOT</code>. Although you might almost always want to work with the latest production version, be warned that new releases sometimes break compatibility with older code. You will have to decide for yourself whether you want to <a href="https://dun.gs/posts/root-installation-osx/#the-easy-way-macports">install via MacPorts</a> and get to work quickly or <a href="https://dun.gs/posts/root-installation-osx/#installation-from-source">compile from source</a> and be able to maintain multiple versions on your system.</p>
+<h2 id="the-easy-way-macports">The easy way: MacPorts</h2>
+<p>If you don't care about multiple versions and just want to get started, you can install <code>ROOT</code> via <a href="http://www.macports.org/">MacPorts</a> with the following command. This will, however, install <code>ROOT</code> into your <code>$PATH</code> which might have unwanted side-effects.</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> port install root</span>
+</span></code></pre>
+<p>Additional features can be activated by adding <code>+feature</code> to the above line. The possible features are</p>
+<pre class="z-code"><code><span class="z-text z-plain">clang30 clang31 clang32 clang33 clang34 clang35
+gcc43 gcc44 gcc45 gcc46 gcc47 gcc48 gcc49
+</span></code></pre>
+<p>for manually choosing the compiler version,</p>
+<pre class="z-code"><code><span class="z-text z-plain">python26 python27 python31 python32 python33 python34
+</span></code></pre>
+<p>for specifying a Python version,</p>
+<pre class="z-code"><code><span class="z-text z-plain">ruby
+</span></code></pre>
+<p>for enabling support for Ruby,</p>
+<pre class="z-code"><code><span class="z-text z-plain">mariadb
+mysql mysql51 mysql55
+odbc
+postgresql90 postgresql92
+sqlite3
+</span></code></pre>
+<p>for adding database support, and a myriad of other options e.g for GUI frameworks or the TMVA framework for multivariate analysis:</p>
+<pre class="z-code"><code><span class="z-text z-plain">avahi cocoa debug fftw3 fitsio graphviz gsl ldap minuit2
+opengl percona pythia qt_mac roofit ruby soversion ssl
+tmva x11 xml xrootd
+</span></code></pre>
+<h2 id="installation-from-source">Installation from Source</h2>
+<p>The following instructions are tested on OS X 10.9 and 10.8 and are most likely to also work in 10.7. Installation on 10.6 might be different but why would you be using such an old operating system, anyway?</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>You will have to install Apple's XCode and the XCode Command Line Tools. <a href="https://xquartz.macosforge.org/landing/">XQuartz</a>, the Mac OS implementation of the X11 framework, is mandatory.</p>
+<h3 id="from-source">From source</h3>
+<p><em>A more comprehensive documentation can be found <a href="http://root.cern.ch/drupal/content/installing-root-source">on the official website</a></em>.</p>
+<p>The following lines will install a basic version of <code>ROOT 5.34.18</code> to <code>/opt/ROOT/5.34.18</code>.</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">curl</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>O</span> ftp://root.cern.ch/root/root_v5.34.18.source.tar.gz</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tar</span></span><span class="z-meta z-function-call z-arguments z-shell"> xvzf root_v5.34.18.source.tar.gz</span>
+<span class="z-meta z-function-call z-shell"><span class="z-support z-function z-cd z-shell">cd</span></span><span class="z-meta z-function-call z-arguments z-shell"> root</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">./configure</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>prefix</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>/opt/ROOT/5.34.18/</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">make</span></span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> make install</span>
+</span></code></pre>
+<p>If you want to speed up the compilation, use <code>make -jN</code> where <code>N</code> should be 1.5 times the number of cores on your machine, e.g. <code>make -j3</code> on my old dual-core MacBook Pro.</p>
+<p>The <code>configure</code> step is where you can introduce additional options e.g. enable advanced packages or define custom paths. A comprehensive list of options can be obtained by running</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">./configure</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>help</span></span>
+</span></code></pre>
+<p>My personal configuration looks something like this:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">./configure</span></span><span class="z-meta z-function-call z-arguments z-shell"> macosx64 <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>prefix</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>/opt/ROOT/5.34.18 <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>with-clang</span> <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>enable-roofit</span> <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>enable-cocoa</span> <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>enable-c</span>++11 <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>with-python-incdir</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7/ <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">    --</span>with-python-libdir</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/</span>
+</span></code></pre>
+<p>The last to lines ensure that the MacPorts version of Python 2.7 is used. If you want to do the same, make sure Python 2.7 is the active version via</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> port select python python27</span>
+</span></code></pre>
+<h3 id="set-up">Set up</h3>
+<p>Once the installation is finished, you can set up <code>ROOT</code> by running</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-cd z-shell">cd</span></span><span class="z-meta z-function-call z-arguments z-shell"> /opt/ROOT/5.34.18</span>
+<span class="z-meta z-function-call z-shell"><span class="z-support z-function z-source z-shell">source</span></span><span class="z-meta z-function-call z-arguments z-shell"> bin/thisroot.sh</span>
+</span></code></pre>
+<p>Afterwards, typing</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">root</span></span>
+</span></code></pre>
+<p>should start the interactive interpreter.</p>
+<pre class="z-code"><code><span class="z-text z-plain">  *******************************************
+  *                                         *
+  *        W E L C O M E  to  R O O T       *
+  *                                         *
+  *   Version   5.34/18     14 March 2014   *
+  *                                         *
+  *  You are welcome to visit our Web site  *
+  *          http://root.cern.ch            *
+  *                                         *
+  *******************************************
+
+ROOT 5.34/18 (v5-34-18@v5-34-18, Mar 14 2014, 16:29:50 on macosx64)
+
+CINT/ROOT C/C++ Interpreter version 5.18.00, July 2, 2010
+Type ? for help. Commands must be C++ statements.
+Enclose multiple statements between { }.
+root [0]
+</span></code></pre>
+<p>You can exit by typing <code>.q</code>.</p>
+<p><a href="https://github.com/kdungs/dun.gs/issues/2">Go to the corresponding issue on GitHub, in order to discuss this article.</a></p>
+
+</article>
+
+    </main>
+  </body>
+</html>

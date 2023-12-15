@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kevin's blog: Building a mechanical keypad from scratch </title>
+    <link rel="stylesheet" href="https://dun.gs/style.css">
+    <link rel="stylesheet" type="text/css" href="https://dun.gs/syntax-theme.css">
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Kevin's blog</a></h1>
+    </header>
+    <main>
+      
+<article>
+  <h1>Building a mechanical keypad from scratch</h1>
+  <aside>
+    <p>Posted on 2020-07-05.</p>
+  </aside>
+  <blockquote>
+<p>Zen mind, beginner's mind.</p>
+</blockquote>
+<p>Keyboards are a fascinating topic. We interact with them on a daily basis without the need for a deep understanding of how they work. I consider myself a keyboard enthusiast, yet, I had never built one myself.</p>
+<span id="continue-reading"></span>
+<p>In order to not get lost in the rabbit hole of possibilities, I decided to give this side-project a very clear goal and time-frame:</p>
+<h2 id="goal">Goal</h2>
+<p>Build a functional mechanical keypad with ~13 keys and custom firmware from scratch in one weekend. Build it in a way that it could be theoretically scaled up to a larger size without problems; i.e. don't wire each switch to a dedicated pin on the <a href="https://www.pjrc.com/teensy/">Teensy</a>.</p>
+<p>In this post, I document the process for myself and for anyone who's interested.</p>
+<p>I feel like one more thing needs to be said here: When I studied physics, there was this notion going around that electronics was just applied physics and that any physicist could basically derive (and thus practically work with) all of electronics from just the four Maxwell equations. That is utter bullshit. I think electronics are far from trivial and I have tremendous respect for people who have a good understanding of it - with Maxwell equations or without. For me, the Maxwell equations didn't help a tiny bit building this keyboard.</p>
+<h2 id="parts-and-tools">Parts and tools</h2>
+<p><em>I'll list and link to things I have bought and/or used for this project. None of the vendors mentioned have paid me for this. Linking to them is for documentation purposes only and not an endorsement.</em></p>
+<p>Some parts, were ordered from <a href="https://reichelt.de">reichelt.de</a>:</p>
+<ul>
+<li>12 <a href="https://www.reichelt.de/cherry-mx-clear-tastenmodul-schnappbefestigung-cherry-mx1a-c1nn-p202565.html">Cherry MX Clear switches</a></li>
+<li>12 <a href="https://www.reichelt.de/schalt-diode-100-v-150-ma-do-35-1n-4148-p1730.html">1N4148 Diodes</a> (as recommended in <a href="https://geekhack.org/index.php?topic=87689.0">this Geekhack message board post</a>)</li>
+<li>1 <a href="https://www.reichelt.de/teensy-4-1-usb-teensy-4-1-p283580.html?">Teensy 4.1</a></li>
+</ul>
+<p>Other stuff I had lying around, either at home or in the office:</p>
+<ul>
+<li>Keycaps (obviously...): I used some <a href="https://www.wasdkeyboards.com/">WASD</a> blank keycaps that I had to spare</li>
+<li>Four spare motherboard standoffs and screws</li>
+<li>Header pins for the Teensy</li>
+<li>A 30-row breakout board</li>
+<li>7 breadboard jumper wires (male)</li>
+<li>Some insulated wire</li>
+<li>PLA for the printer - thanks to Tobi</li>
+<li>Solder</li>
+</ul>
+<p>Tools</p>
+<ul>
+<li>Soldering tools
+<ul>
+<li>Soldering iron</li>
+<li>3rd hand</li>
+<li>Fume extractor - thanks to Julian</li>
+</ul>
+</li>
+<li>3D printer (we have a CraftBot from <a href="https://www.ruhrsource.com/shop/">RuhrSource</a> in the office)</li>
+<li>Phillips screwdriver</li>
+<li>MacBook using <a href="https://platformio.org/">platformio</a></li>
+<li>Micro USB cable</li>
+</ul>
+<h2 id="3d-printing-the-case">3D printing the case</h2>
+<p>Originally, I wanted to include a rotary encoder and LEDs as well. However, given the time limit, I didn't want to spend a lot of the time learning Blender. So I decided to go with a <a href="https://www.thingiverse.com/thing:1312012">simple layout from Thingyverse</a> by user <a href="https://www.thingiverse.com/laffy/about">Laffy</a> and not spend any time 3D modelling for the first version.</p>
+<p>From there, printing was straightforward. I opened the STL files in <a href="https://craftbot.com/craftware/">CraftWare</a> and sliced them on default settings for our printer. Didn't event look at the gCode and the results came out fine. The switches fit the holes nicely but don't quite click into place because the mount is slightly too thick. This will probably become a problem when trying to remove keycaps but it's okay for now.</p>
+<p><img src="/images/keyb/print.png" alt="3D-printed mount with a single switch and keycap inserted." /></p>
+<h2 id="wiring">Wiring</h2>
+<p>With only 12 keys and 42 digital pins on the Teensy, it would have been possible to just wire each switch to a dedicated pin. However, one goal of this project was to use a methodology that could scale up to larger boards. In a <a href="https://en.wikipedia.org/wiki/Keyboard_matrix_circuit">keyboard matrix circuit</a>, the $k$ keys are arranged in a $m\times n$ matrix. This way, we only require $m + n$ instead of $k$ pins on the controller. The controller then has to <em>scan</em> that matrix row-by-row (or column-by-column) and collect the responses. E.g. if it gives current to row 1, it can figure out whether buttons $(1, 1), …, (1, n)$ are pressed by measuring the current on columns $1, …, n$.</p>
+<p>I loosely followed these three guides:</p>
+<ul>
+<li><a href="https://geekhack.org/index.php?topic=87689.0">https://geekhack.org/index.php?topic=87689.0</a></li>
+<li><a href="http://www.masterzen.fr/2018/12/16/handwired-keyboard-build-log-part-1/">http://www.masterzen.fr/2018/12/16/handwired-keyboard-build-log-part-1/</a></li>
+<li><a href="https://matt3o.com/hand-wiring-a-custom-keyboard/">https://matt3o.com/hand-wiring-a-custom-keyboard/</a></li>
+</ul>
+<p>I used the diodes' legs to connect the rows. The diodes are used to prevent current flowing back through the switches. Thus, they effectively prevent ghosting. Have a look at the explanation in masterzen's blog post.</p>
+<p><img src="/images/keyb/rows.png" alt="Diodes wired to the switches with legs connected." /></p>
+<p>Then, I connected the columns using some litz wire. Here, I was trying to be clever and use a single piece of wire with holes in the insulation. The idea was that I could then connect the same wires to the controller.</p>
+<p><img src="/images/keyb/columns.png" alt="Columns connected with litz wire." /></p>
+<p>First of all, it was difficult to get the distances right. Then again, the wires were too stiff to be routed to the controller so I ended up cutting them anyway and wiring jumper wires to the columns, as well. Here's the final layout after attaching the jumper wires.</p>
+<p><img src="/images/keyb/wiring.png" alt="Final wiring with jumper wires attached." /></p>
+<p>You'll notice that the wires go outside the case. Since I only had motherboard spacer screws at hand, I decided to keep the controller outside the case. This is not a problem for functionality but definitely something I'll change in the next iteration.</p>
+<p><img src="/images/keyb/spacers.png" alt="Side view of the closed case with the motherboard spacers." /></p>
+<p>Soldering all this stuff was a pain and even though I used a fume extractor fan, my dinner tasted like solder, afterwards. Next time I'm going with a PCB.</p>
+<h2 id="firmware">Firmware</h2>
+<p>After all the soldering and worrying about whether the electronics will actually work, this was supposed to be the fun part. Of course, there is existing keyboard firmware on the internet, but I wanted to write my own.</p>
+<p>First, I probed the matrix manually e.g. by setting all rows to <code>OUTPUT</code> and <code>LOW</code> and row 0 to <code>HIGH</code> and then measuring the response in the <code>INPUT</code> columns. There are a few things wrong with that, notably that one should use pull-up mode for the inputs (<code>INPUT_PULLUP</code>) and set rows to <code>INPUT</code> while they are not scanning. Because of the pull-up, we would then scan by setting the row to <code>LOW</code>.</p>
+<p>Thanks to <a href="https://forum.pjrc.com/threads/55395-Keyboard-simple-firmware">a great message board post that provided some debouncing code</a>, I was able to get a first version running Saturday night. The important lesson here - at least for me who's more of a programmer anyway - is that since electronics are flaky (switches &quot;bounce&quot;), you cannot just treat a switch like a binary signal.</p>
+<p>You can find the firmware on GitHub at <a href="https://github.com/kdungs/keyb">kdungs/keyb</a>. In the first version, it just maps each switch to a specific key. I'll spend the rest of this Sunday tweaking it and playing around with things like layers, chords, etc. You'll be able to find the results of that in said repo and if I stumble over anything cool, I'll also update this post.</p>
+<h2 id="result">Result</h2>
+<p><img src="/images/keyb/result.png" alt="The final result with keycaps and controller." /></p>
+<h2 id="lessons-learned">Lessons learned</h2>
+<p>Teensy doesn't show up as a device on the Mac, in fact as someone pointed out in a message board:</p>
+<blockquote>
+<p>There are posts here explaining that teensy uses a special USB protocol for downloading. Only if the downloaded program uses Serial will a COM port (windows) appear. This confuses AVR Arduino newbies.</p>
+</blockquote>
+<p>Hand-wiring is fun and interesting at first, but can be a real pain. I'm not sure, I would want to to this again for a full-size board. Next time around, I'll try out a PCB. However, I was surprised by how fault-tolerant the process turned out to be. I didn't expect my crappy soldering to work so well.</p>
+<p>3D-printed stuff is nice but I don't know enough about it to make it work at high quality. So I either have to learn more about it or use laser-cut metal or something else the next time around.</p>
+<h2 id="what-s-next">What's next?</h2>
+<ul>
+<li>Improve the firmware</li>
+<li>A better case that can house the Teensy</li>
+<li>Use the rotary encoder and LEDs!</li>
+</ul>
+<p><a href="https://github.com/kdungs/dun.gs/issues/9">Go to the corresponding issue on GitHub, in order to discuss this article.</a></p>
+
+</article>
+
+    </main>
+  </body>
+</html>

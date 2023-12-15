@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kevin's blog: How to set up a Windward server on GCP and some insight into systemd </title>
+    <link rel="stylesheet" href="https://dun.gs/style.css">
+    <link rel="stylesheet" type="text/css" href="https://dun.gs/syntax-theme.css">
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Kevin's blog</a></h1>
+    </header>
+    <main>
+      
+<article>
+  <h1>How to set up a Windward server on GCP and some insight into systemd</h1>
+  <aside>
+    <p>Posted on 2020-09-24.</p>
+  </aside>
+  <blockquote>
+<p><a href="https://store.steampowered.com/app/326410/">Windward</a> is an action-filled multiplayer sandbox game that puts you in control of a ship sailing the high seas of a large procedurally-generated world.</p>
+</blockquote>
+<p>Thanks to the recent Steam Pirate Sale and my friend Alex, I started playing Windward. For technical reasons, we had to set up a dedicated server which turned out to be fairly simple and has the added benefit of asynchronous play that since then lured in more players (shout out to Patrick!).</p>
+<span id="continue-reading"></span>
+<p>This article touches on three important aspects:</p>
+<ul>
+<li><a href="https://dun.gs/posts/windward-systemd/#set-up-a-gcp-compute-engine-vm">How to set up a virtual machine on the Google Cloud Platform (GCP) Compute Engine to host our server</a></li>
+<li><a href="https://dun.gs/posts/windward-systemd/#configure-linux-to-run-the-windward-server">How to set up a dedicated Windward server under Linux</a></li>
+<li><a href="https://dun.gs/posts/windward-systemd/#epilogue-why-tmux">How to make systemd user services, mono, and Windward play together nicely</a></li>
+</ul>
+<p>The third section explains the details behind some choices in the second section and is not required reading if you just want to set up your own server. If you want to understand why the service makes use of <code>tmux</code> in such a weird way, read until the end.</p>
+<h1 id="set-up-a-gcp-compute-engine-vm">Set up a GCP Compute Engine VM</h1>
+<p>For this, you can follow the excellent, official tutorial at <a href="https://cloud.google.com/community/tutorials/setup-arma-server-compute-engine">https://cloud.google.com/community/tutorials/setup-arma-server-compute-engine</a> almost step by step until right before the section &quot;Set up the Arma server&quot;.</p>
+<p>The key differences are:</p>
+<ul>
+<li>An <code>e2-micro (2 vCPU, 1GB memory)</code> instance will be powerful enough.</li>
+<li>In the firewall, port 5127 should be open for incoming TCP traffic.</li>
+</ul>
+<p>Also make sure to chose a zone (both for the instance and the external IP) that anticipates where your players will come from. E.g. on my server, all players are from Germany, so I chose <code>europe-west3 (Frankfurt)</code>.</p>
+<h1 id="configure-linux-to-run-the-windward-server">Configure Linux to run the Windward server</h1>
+<p>Once you can connect to the machine via SSH (see <a href="https://cloud.google.com/compute/docs/instances/connecting-to-instance#gcetools">https://cloud.google.com/compute/docs/instances/connecting-to-instance#gcetools</a> if you're unsure how), as a first order of business, create a dedicated user. This is to avoid running the server binary with the (sudo) privileges of your account. Also, in order to allow the server to start automatically when the machine starts, <a href="https://www.freedesktop.org/software/systemd/man/loginctl.html#enable-linger%20USER%E2%80%A6">enable lingering</a> for the newly created user.</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> adduser wward</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> usermod<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>L</span> wward</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> loginctl enable-linger wward</span>
+</span></code></pre>
+<p>Install <code>mono</code> which is needed to run the (.NET) binary and other tools we'll need long the way. Updating the server also shouldn't hurt…</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt update</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt upgrade<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>y</span></span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sudo</span></span><span class="z-meta z-function-call z-arguments z-shell"> apt install<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>y</span> mono-complete tmux unzip</span>
+</span></code></pre>
+<p>Switch to the user we just created via <code>sudo su wward</code> and set the following environment variables so you're able to use <code>systemctl</code> as <code>wward</code>.</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-storage z-modifier z-shell">export</span> <span class="z-variable z-other z-readwrite z-assignment z-shell">XDG_RUNTIME_DIR</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>/run/user/<span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">UID</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+<span class="z-meta z-function-call z-shell"><span class="z-storage z-modifier z-shell">export</span> <span class="z-variable z-other z-readwrite z-assignment z-shell">DBUS_SESSION_BUS_ADDRESS</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>unix:path=<span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-expansion z-parameter z-begin z-shell">{</span></span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-variable z-other z-readwrite z-shell">XDG_RUNTIME_DIR</span></span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-section z-expansion z-parameter z-end z-shell">}</span></span>/bus<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span></code></pre>
+<p>Download the server binary from the official source. (Alternatively, you can also find it in your Steam folder under <code>Steam/steamapps/common/Windward/</code>.)</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">curl</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>O</span> http://www.tasharen.com/windward/WWServer.zip</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">unzip</span></span><span class="z-meta z-function-call z-arguments z-shell"> WWServer.zip</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">rm</span></span><span class="z-meta z-function-call z-arguments z-shell"> WWServer.zip</span>
+</span></code></pre>
+<p>In order to be able to actually start a campaign, you'll have to create it manually, by running the game on your local machine and starting a new campaign.  Once the corresponding <code>.dat</code> and <code>.dat.config</code> files show up under <code>Documents\Windward\Worlds\</code>, copy them into <code>~/Windward/Worlds/</code> on your server.  The rest of the tutorial will assume that your campaign is called &quot;MyCampaign&quot;.  You might have to replace that name with whatever you chose in the following steps.</p>
+<p>Then, create a script called <code>~/start-server.sh</code> with the following contents</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">!/bin/bash</span><span class="z-comment z-line z-number-sign z-shell">
+</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">/usr/bin/mono</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/WWServer.exe <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">        -</span>name</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Foo Server<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">        -</span>world</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>MyCampaign<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-punctuation z-separator z-continuation z-line z-shell">\
+</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">        -</span>tcp</span> 5127</span>
+</span></code></pre>
+<p>Make it executable via <code>chmod +x ~/start-server.sh</code>. If you want your server to appear on the public list of available game servers, you can also specify the <code>-public</code> option.</p>
+<p>Then, create <code>~/.config/systemd/user/windward.service</code> with the following contents</p>
+<pre class="z-code"><code><span class="z-text z-plain">[Unit]
+Description=Windward Dedicated Server
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/tmux new-session -d -s Windward %h/start-server.sh
+ExecStop=/usr/bin/tmux send-keys -t Windward q Enter Enter
+
+[Install]
+WantedBy=default.target
+</span></code></pre>
+<p>Enable and start the service via</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">systemctl</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>user</span> enable windward.service</span>
+<span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">systemctl</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>user</span> start windward.service</span>
+</span></code></pre>
+<p>You should be all good to go. All the best and may you always have enough water under your keel.</p>
+<h1 id="epilogue-why-tmux">Epilogue: Why tmux?</h1>
+<p>The avid reader might be confused about the use of <code>tmux</code> here. Why not just start the server directly in the service and be done with it? That is exactly what I did when I first migrated the server from a tmux session to a &quot;proper&quot; systemd user service. On the same day, we noticed larger latencies in game but I didn't attribute them to the change. Only when I saw the CPU usage on the GCP dashboard the next day, I noticed that it had jumped from below 20% to over 80% the moment I moved the server to a systemd service.</p>
+<p>Very quickly, I found <a href="https://unix.stackexchange.com/questions/191621/systemd-service-using-100-of-my-cpu-when-it-doesnt-if-i-start-it-without-syste">this thread on Stackexchange</a> where someone describes a very similar problem. Incidentally, they are also using <code>mono</code>. As it turns out, <code>mono</code> is not the problem, though.</p>
+<p>As one commenter notes,</p>
+<blockquote>
+<p>Systemd runs process without stdin (=/dev/null). All syscalls to read() are finished immediately (with normal stdin, read() is blocked until new data arrive).</p>
+</blockquote>
+<p>Unfortunately, the Windward server waits for input on stdin. Running it in the aforementioned fashion will result in the server spamming the output and continously reading from /dev/null/. If you try to run the server as a systemd user service directly, you'll see many lines similar to this one in <code>journalctl</code>:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Sep 24 13:55:59 windward-server start-server.sh[631]: [2020/09/24 13:55:59] \
+Press &#39;q&#39; followed by ENTER when you want to quit.
+</span></code></pre>
+<p>Another commenter suggests using the <a href="https://freedesktop.org/software/systemd/man/systemd.exec.html#StandardInput="><code>StandardInput=tty</code></a> option. Unfortunately, this does not work here, as our user can't interact with the TTY. I'm not sure if this is because of the VM or because of insufficient privileges, but I couldn't get it to work so I started looking for alternatives. I also tried files and named pipes but none would reliably bring the load down.</p>
+<p>The author of the aforementioned thread discovered that they could get the load down by running their executable inside <code>screen</code>. After knowing about the problem with reading from stdin, this is no longer surprising, as the process inside screen will have their own stdin and stdout. Using <code>tmux</code> instead of screen, and some insight from <a href="https://serverfault.com/questions/178457/can-i-send-some-text-to-the-stdin-of-an-active-process-running-in-a-screen-sessi/547144#547144">another discussion on Serverfault</a>, I even found a nice way to terminate the server in the intended way: tmux allows us to send keystrokes to the running program, so we can configure the service to use that to bring down the server:</p>
+<pre class="z-code"><code><span class="z-text z-plain">ExecStop=/usr/bin/tmux send-keys -t Windward q Enter Enter
+</span></code></pre>
+<p>Very nice indeed.</p>
+<p><a href="https://github.com/kdungs/dun.gs/issues/10">Go to the corresponding issue on GitHub, in order to discuss this article.</a></p>
+
+</article>
+
+    </main>
+  </body>
+</html>
